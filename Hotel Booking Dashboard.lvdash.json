@@ -1,0 +1,1707 @@
+{
+  "datasets": [
+    {
+      "name": "dafafad4",
+      "displayName": "gold_channel_summary",
+      "config": {
+        "version": "1.1",
+        "source": "hospitality_catalog.hospitality_catalog_bookings.gold_channel_summary",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "2d7e8cd8",
+      "displayName": "gold_data_quality",
+      "config": {
+        "version": "1.1",
+        "source": "hospitality_catalog.hospitality_catalog_bookings.gold_data_quality",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all rows.",
+            "displayName": "Count"
+          },
+          {
+            "name": "reconciliation_gap",
+            "expr": "MAX(source.bronze_rows) - MAX(source.duplicate_rows) - MAX(source.clean_rows) - MAX(source.rejected_rows)",
+            "comment": "0 when bronze rows minus duplicates reconcile with clean plus rejected rows.",
+            "displayName": "Reconciliation Gap"
+          }
+        ]
+      }
+    },
+    {
+      "name": "17348a8e",
+      "displayName": "gold_hotel_summary",
+      "config": {
+        "version": "1.1",
+        "source": "hospitality_catalog.hospitality_catalog_bookings.gold_hotel_summary",
+        "dimensions": [
+          {
+            "expr": "source.* EXCEPT (net_revenue, avg_daily_rate)"
+          },
+          {
+            "name": "net_revenue",
+            "expr": "source.net_revenue",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            }
+          },
+          {
+            "name": "avg_daily_rate",
+            "expr": "source.avg_daily_rate",
+            "displayName": "Avg Daily Rate",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all rows.",
+            "displayName": "Count"
+          },
+          {
+            "displayName": "Net Revenue (Lakh)",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            },
+            "name": "net_revenue_lakh",
+            "expr": "SUM(source.net_revenue) / 100000",
+            "comment": "Total net revenue in Indian lakh (1 lakh = 1,00,000 rupees)."
+          }
+        ]
+      }
+    },
+    {
+      "name": "5750f951",
+      "displayName": "gold_monthly_bookings",
+      "config": {
+        "version": "1.1",
+        "source": "hospitality_catalog.hospitality_catalog_bookings.gold_monthly_bookings",
+        "dimensions": [
+          {
+            "expr": "source.* EXCEPT (net_revenue)"
+          },
+          {
+            "name": "net_revenue",
+            "expr": "source.net_revenue",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "abbreviation": "compact",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all rows.",
+            "displayName": "Count"
+          },
+          {
+            "displayName": "Net Revenue (Crore)",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "exact",
+                "places": 2.0
+              }
+            },
+            "name": "net_revenue_cr",
+            "expr": "SUM(source.net_revenue) / 10000000",
+            "comment": "Total net revenue in Indian crore (1 crore = 1,00,00,000 rupees)."
+          },
+          {
+            "displayName": "Net Revenue (Lakh)",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            },
+            "name": "net_revenue_lakh",
+            "expr": "SUM(source.net_revenue) / 100000",
+            "comment": "Total net revenue in Indian lakh (1 lakh = 1,00,000 rupees)."
+          }
+        ]
+      }
+    },
+    {
+      "name": "c4acdf60",
+      "displayName": "gold_room_type_summary",
+      "config": {
+        "version": "1.1",
+        "source": "hospitality_catalog.hospitality_catalog_bookings.gold_room_type_summary",
+        "dimensions": [
+          {
+            "expr": "source.* EXCEPT (net_revenue, avg_daily_rate)"
+          },
+          {
+            "name": "net_revenue",
+            "expr": "source.net_revenue",
+            "displayName": "Net Revenue",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            }
+          },
+          {
+            "name": "avg_daily_rate",
+            "expr": "source.avg_daily_rate",
+            "displayName": "Avg Daily Rate",
+            "format": {
+              "type": "currency",
+              "currencyCode": "INR",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all rows.",
+            "displayName": "Count"
+          },
+          {
+            "displayName": "Net Revenue (Lakh)",
+            "format": {
+              "type": "number",
+              "decimalPlaces": {
+                "type": "max",
+                "places": 2.0
+              }
+            },
+            "name": "net_revenue_lakh",
+            "expr": "SUM(source.net_revenue) / 100000",
+            "comment": "Total net revenue in Indian lakh (1 lakh = 1,00,000 rupees)."
+          }
+        ]
+      }
+    },
+    {
+      "name": "gold_dq_issues",
+      "displayName": "Data Quality Issues",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT stack(\n  7,\n  'Duplicate bookings', duplicate_rows,\n  'Invalid check-out dates', invalid_date_rows,\n  'Missing city', missing_city_rows,\n  'Negative room rate', negative_rate_rows,\n  'Missing booking channel', missing_channel_rows,\n  'Missing total amount', missing_amount_rows,\n  'Missing nights', missing_nights_rows\n) AS (issue, issue_count)\nFROM hospitality_catalog.hospitality_catalog_bookings.gold_data_quality\n",
+        "dimensions": [
+          {
+            "name": "issue",
+            "expr": "source.issue"
+          }
+        ],
+        "measures": [
+          {
+            "name": "issue_count",
+            "expr": "SUM(source.issue_count)",
+            "comment": "Number of source rows affected by each data quality issue type.",
+            "displayName": "Rows Affected"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "f31529a0",
+      "displayName": "Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "kpi_total_bookings",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5750f951",
+                  "fields": [
+                    {
+                      "name": "sum(bookings)",
+                      "expression": "SUM(`bookings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Total Bookings",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(bookings)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#1B2A4A",
+                "dark": "#22355C"
+              },
+              "widgetBorderColor": {
+                "light": "#1B2A4A",
+                "dark": "#22355C"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_net_revenue",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5750f951",
+                  "fields": [
+                    {
+                      "name": "sum(net_revenue)",
+                      "expression": "SUM(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Net Revenue",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(net_revenue)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#0E9594",
+                "dark": "#0C7B7A"
+              },
+              "widgetBorderColor": {
+                "light": "#0E9594",
+                "dark": "#0C7B7A"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_room_nights",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5750f951",
+                  "fields": [
+                    {
+                      "name": "sum(room_nights)",
+                      "expression": "SUM(`room_nights`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Room Nights",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(room_nights)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#7C3AED",
+                "dark": "#6A31C7"
+              },
+              "widgetBorderColor": {
+                "light": "#7C3AED",
+                "dark": "#6A31C7"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_cancelled_bookings",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5750f951",
+                  "fields": [
+                    {
+                      "name": "sum(cancelled_bookings)",
+                      "expression": "SUM(`cancelled_bookings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": "Cancellations"
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(cancelled_bookings)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#F97316",
+                "dark": "#D9660F"
+              },
+              "widgetBorderColor": {
+                "light": "#F97316",
+                "dark": "#D9660F"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 0,
+            "width": 3,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "line_net_revenue_month",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5750f951",
+                  "fields": [
+                    {
+                      "name": "stay_month",
+                      "expression": "`stay_month`"
+                    },
+                    {
+                      "name": "sum(net_revenue)",
+                      "expression": "SUM(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "headerAlignment": "left",
+                "showTitle": true,
+                "title": "Net Revenue by Stay Month"
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  "#2457C5"
+                ],
+                "lineShape": "smooth",
+                "opacity": 0.7
+              },
+              "widgetType": "area",
+              "encodings": {
+                "x": {
+                  "fieldName": "stay_month",
+                  "axis": {
+                    "title": "Stay Month"
+                  },
+                  "displayName": "Stay Month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(net_revenue)",
+                  "axis": {
+                    "title": "Net Revenue (INR)"
+                  },
+                  "displayName": "Net Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 12,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_net_revenue_city",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "17348a8e",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "sum(net_revenue)",
+                      "expression": "SUM(`net_revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "headerAlignment": "left",
+                "showTitle": true,
+                "title": "Net Revenue by City"
+              },
+              "version": 3,
+              "mark": {
+                "opacity": 0.9
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(net_revenue)",
+                  "axis": {
+                    "title": "Net Revenue (INR)"
+                  },
+                  "displayName": "Net Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "city",
+                  "axis": {
+                    "title": "City"
+                  },
+                  "displayName": "City",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "city",
+                  "legend": {
+                    "hide": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "sum(net_revenue)",
+                    "format": {
+                      "abbreviation": "compact",
+                      "currencyCode": "INR",
+                      "decimalPlaces": {
+                        "places": 1,
+                        "type": "max"
+                      },
+                      "type": "number-currency"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 9,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "cities_rooms_channels",
+      "displayName": "Cities, Rooms & Channels",
+      "layout": [
+        {
+          "widget": {
+            "name": "bar_net_revenue_room_type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c4acdf60",
+                  "fields": [
+                    {
+                      "name": "sum(net_revenue)",
+                      "expression": "SUM(`net_revenue`)"
+                    },
+                    {
+                      "name": "room_type",
+                      "expression": "`room_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "headerAlignment": "left",
+                "showTitle": true,
+                "title": "Net Revenue by Room Type"
+              },
+              "mark": {
+                "opacity": 0.92
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(net_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Net Revenue"
+                },
+                "color": {
+                  "fieldName": "room_type",
+                  "legend": {
+                    "position": "right"
+                  },
+                  "scale": {
+                    "sort": {
+                      "by": "angle-reversed"
+                    },
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_adr_room_type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "c4acdf60",
+                  "fields": [
+                    {
+                      "name": "room_type",
+                      "expression": "`room_type`"
+                    },
+                    {
+                      "name": "max(avg_daily_rate)",
+                      "expression": "MAX(`avg_daily_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Avg Daily Rate by Room Type",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "opacity": 0.9
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "room_type",
+                  "displayName": "Room Type",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "max(avg_daily_rate)",
+                  "displayName": "Avg Daily Rate (INR)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "room_type",
+                  "legend": {
+                    "hide": true
+                  },
+                  "displayName": "room_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "max(avg_daily_rate)",
+                    "format": {
+                      "abbreviation": "none",
+                      "currencyCode": "INR",
+                      "decimalPlaces": {
+                        "places": 0,
+                        "type": "exact"
+                      },
+                      "type": "number-currency"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_cancellation_rate_channel",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "dafafad4",
+                  "fields": [
+                    {
+                      "name": "max(cancellation_rate_pct)",
+                      "expression": "MAX(`cancellation_rate_pct`)"
+                    },
+                    {
+                      "name": "booking_channel",
+                      "expression": "`booking_channel`"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`booking_channel` IS NOT NULL"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "headerAlignment": "left",
+                "showTitle": true,
+                "title": "Cancellation Rate by Channel (%)"
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  "#F97316"
+                ],
+                "opacity": 0.9
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "max(cancellation_rate_pct)",
+                  "axis": {
+                    "title": "Cancellation Rate (%)"
+                  },
+                  "displayName": "Cancellation Rate (%)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "booking_channel",
+                  "axis": {
+                    "title": "Booking Channel"
+                  },
+                  "displayName": "Booking Channel",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "max(cancellation_rate_pct)",
+                    "format": {
+                      "abbreviation": "none",
+                      "decimalPlaces": {
+                        "places": 1,
+                        "type": "exact"
+                      },
+                      "type": "number-plain"
+                    },
+                    "formatTemplate": "{{ @formatted }}%"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_bookings_city",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "17348a8e",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "sum(bookings)",
+                      "expression": "SUM(`bookings`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Bookings by City",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "opacity": 0.9
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "city",
+                  "displayName": "City",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(bookings)",
+                  "displayName": "Bookings",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "city",
+                  "legend": {
+                    "hide": true
+                  },
+                  "displayName": "city",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "sum(bookings)",
+                    "format": {
+                      "abbreviation": "compact",
+                      "decimalPlaces": {
+                        "places": 1,
+                        "type": "max"
+                      },
+                      "type": "number-plain"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 6,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "table_city_performance",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "17348a8e",
+                  "fields": [
+                    {
+                      "name": "city",
+                      "expression": "`city`"
+                    },
+                    {
+                      "name": "bookings",
+                      "expression": "`bookings`"
+                    },
+                    {
+                      "name": "room_nights",
+                      "expression": "`room_nights`"
+                    },
+                    {
+                      "name": "net_revenue",
+                      "expression": "`net_revenue`"
+                    },
+                    {
+                      "name": "avg_daily_rate",
+                      "expression": "`avg_daily_rate`"
+                    }
+                  ],
+                  "disaggregated": true,
+                  "orders": [
+                    {
+                      "direction": "DESC",
+                      "expression": "`net_revenue`"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "headerAlignment": "left",
+                "title": {
+                  "value": "City Performance",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "bandedRows": {
+                "enabled": true
+              },
+              "headerHeight": 44,
+              "headerStyle": {
+                "backgroundColor": "#1B2A4A",
+                "foregroundColor": "#FFFFFF",
+                "fontSize": 12,
+                "fontWeight": 700,
+                "textCase": "uppercase"
+              },
+              "rowsPerPage": 10,
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "city",
+                    "contentAlignment": "left",
+                    "headerAlignment": "left",
+                    "displayName": "City"
+                  },
+                  {
+                    "fieldName": "bookings",
+                    "contentAlignment": "right",
+                    "headerAlignment": "right",
+                    "displayName": "Bookings"
+                  },
+                  {
+                    "fieldName": "room_nights",
+                    "contentAlignment": "right",
+                    "headerAlignment": "right",
+                    "displayName": "Room Nights"
+                  },
+                  {
+                    "fieldName": "net_revenue",
+                    "contentAlignment": "right",
+                    "headerAlignment": "right",
+                    "displayName": "Net Revenue (INR)"
+                  },
+                  {
+                    "fieldName": "avg_daily_rate",
+                    "contentAlignment": "right",
+                    "headerAlignment": "right",
+                    "displayName": "Avg Daily Rate (INR)"
+                  }
+                ],
+                "rowOrder": [
+                  {
+                    "by": "column-reversed",
+                    "field": {
+                      "index": 3
+                    }
+                  }
+                ]
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 12,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "data_quality",
+      "displayName": "Data Quality",
+      "layout": [
+        {
+          "widget": {
+            "name": "kpi_bronze_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2d7e8cd8",
+                  "fields": [
+                    {
+                      "name": "max(bronze_rows)",
+                      "expression": "MAX(`bronze_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Bronze Rows",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "max(bronze_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#1B2A4A",
+                "dark": "#22355C"
+              },
+              "widgetBorderColor": {
+                "light": "#1B2A4A",
+                "dark": "#22355C"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_clean_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2d7e8cd8",
+                  "fields": [
+                    {
+                      "name": "max(clean_rows)",
+                      "expression": "MAX(`clean_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Clean Bookings",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "max(clean_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#22A455",
+                "dark": "#1D8C4B"
+              },
+              "widgetBorderColor": {
+                "light": "#22A455",
+                "dark": "#1D8C4B"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_rejected_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2d7e8cd8",
+                  "fields": [
+                    {
+                      "name": "max(rejected_rows)",
+                      "expression": "MAX(`rejected_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Rejected Rows",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "max(rejected_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#F97316",
+                "dark": "#D9660F"
+              },
+              "widgetBorderColor": {
+                "light": "#F97316",
+                "dark": "#D9660F"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_duplicate_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2d7e8cd8",
+                  "fields": [
+                    {
+                      "name": "max(duplicate_rows)",
+                      "expression": "MAX(`duplicate_rows`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Duplicate Rows",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "max(duplicate_rows)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#7C3AED",
+                "dark": "#6A31C7"
+              },
+              "widgetBorderColor": {
+                "light": "#7C3AED",
+                "dark": "#6A31C7"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_reconciliation_gap",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2d7e8cd8",
+                  "fields": [
+                    {
+                      "name": "measure(reconciliation_gap)",
+                      "expression": "MEASURE(`reconciliation_gap`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "showDescription": true,
+                "title": {
+                  "value": "Reconciliation Gap",
+                  "fields": []
+                },
+                "description": "0 = passed"
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(reconciliation_gap)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#0E9594",
+                "dark": "#0C7B7A"
+              },
+              "widgetBorderColor": {
+                "light": "#0E9594",
+                "dark": "#0C7B7A"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "kpi_issue_rows",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "gold_dq_issues",
+                  "fields": [
+                    {
+                      "name": "measure(issue_count)",
+                      "expression": "MEASURE(`issue_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "contentAlignment": "center",
+                "headerAlignment": "left",
+                "title": {
+                  "value": "Rows With Issues",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "style": {
+                "fontColor": {
+                  "dark": "#FFFFFF",
+                  "light": "#FFFFFF"
+                }
+              },
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "measure(issue_count)",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "light": "#2457C5",
+                "dark": "#1F4AA8"
+              },
+              "widgetBorderColor": {
+                "light": "#2457C5",
+                "dark": "#1F4AA8"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 3,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "bar_issue_counts",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "gold_dq_issues",
+                  "fields": [
+                    {
+                      "name": "issue",
+                      "expression": "`issue`"
+                    },
+                    {
+                      "name": "measure(issue_count)",
+                      "expression": "MEASURE(`issue_count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "headerAlignment": "left",
+                "showTitle": true,
+                "title": "Data Quality Issues by Type"
+              },
+              "version": 3,
+              "mark": {
+                "opacity": 0.9
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "measure(issue_count)",
+                  "axis": {
+                    "title": "Rows Affected"
+                  },
+                  "displayName": "Rows Affected",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "issue",
+                  "axis": {
+                    "title": "Issue Type"
+                  },
+                  "displayName": "Issue Type",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "x-reversed"
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "issue",
+                  "legend": {
+                    "hide": true
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true,
+                  "text": {
+                    "fieldName": "measure(issue_count)",
+                    "format": {
+                      "abbreviation": "none",
+                      "decimalPlaces": {
+                        "places": 0,
+                        "type": "exact"
+                      },
+                      "type": "number-plain"
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 6,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#E9EEF5",
+        "dark": "#0D1524"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#16202F"
+      },
+      "widgetBorderColor": {
+        "light": "#FFFFFF",
+        "dark": "#16202F"
+      },
+      "selectionColor": {
+        "light": "#2457C5",
+        "dark": "#5B8DEF"
+      },
+      "visualizationColors": [
+        "#1B2A4A",
+        "#2457C5",
+        "#0E9594",
+        "#7C3AED",
+        "#F97316",
+        "#22A455",
+        "#5B8DEF",
+        "#C026D3"
+      ],
+      "widgetHeaderAlignment": "LEFT",
+      "widgetPadding": 12,
+      "widgetMargin": 8,
+      "widgetCornerRadius": 12,
+      "widgetShadow": 15,
+      "fontSettings": {
+        "base": {
+          "fontFamily": "Inter",
+          "fontColor": {
+            "light": "#1F2937",
+            "dark": "#E6EBF2"
+          },
+          "fontSize": 13
+        },
+        "widgetTitle": {
+          "fontFamily": "Poppins",
+          "fontColor": {
+            "light": "#14213D",
+            "dark": "#F2F5FA"
+          },
+          "fontSize": 15,
+          "fontWeight": 700
+        },
+        "fieldTitle": {
+          "fontSize": 12,
+          "fontWeight": 600
+        },
+        "fieldValue": {
+          "fontSize": 12
+        }
+      },
+      "gridLineColor": {
+        "light": "#DCE3ED",
+        "dark": "#2A3A52"
+      },
+      "axisLineColor": {
+        "light": "#B9C4D4",
+        "dark": "#3A4A66"
+      }
+    },
+    "applyModeEnabled": false
+  }
+}
